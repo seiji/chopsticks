@@ -20,6 +20,15 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+#### Using `.netrc` for stored credentials
+
+now supports [`.netrc`][netrc] files for storing your feed access
+credentials. Given a `~/.netrc` like the following
+
+```
+machine reader.google.com login seiji password chopchop
+```
+
 ## Contributing
 
 1. Fork it

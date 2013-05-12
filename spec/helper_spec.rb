@@ -18,7 +18,7 @@ describe String, "When display screen," do
     "http://あいうえお".display_slice(10).should == "http://あ "
     "http://あいうえお".display_slice(20).should == "http://あいうえお   "
     ("1234567890" * 20 + "1234").display_slice(204).should == "1234567890" * 20 + "1234"
-    "Block Rockin’ Codes".display_slice(30).should == "Block Rockin’ Codes          "
+    "Block Rockin’ Codes".display_slice(30).should == "Block Rockin' Codes           "
   end
   
 end

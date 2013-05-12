@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Chopsticks::VERSION
   gem.authors       = ["Seiji Toyama"]
   gem.email         = ["seijit@me.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{just Feed Reader}
+  gem.summary       = %q{read feeds}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)

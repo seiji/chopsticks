@@ -1,12 +1,12 @@
 # Chopsticks
 
-TODO: Write a gem description
+Feed reader client using ncurses
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Checkout this project:
 
-    gem 'chopsticks'
+    hub clone seiji/chopsticks
 
 And then execute:
 
@@ -17,8 +17,16 @@ Or install it yourself as:
     $ gem install chopsticks
 
 ## Usage
+Create your .netrc And then
 
-TODO: Write usage instructions here
+Execute this script
+
+    chop
+
+Or
+
+    bundle exec bin/chop
+
 
 #### Using `.netrc` for stored credentials
 
@@ -28,6 +36,7 @@ credentials. Given a `~/.netrc` like the following
 ```
 machine reader.google.com login seiji password chopchop
 ```
+
 
 ## Contributing
 

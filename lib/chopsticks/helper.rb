@@ -30,12 +30,30 @@ class String
     self.split("").each { |i| yield i }
   end
 
+  def html2md
+    html2md = Html2Md.new(self)
+    begin
+      str = html2md.parse
+    rescue
+      str = self
+    ensure
+    end
+    str.gsub(/(\r\n){3,}|\r{3,}|\n{3,}/, "\n\n")
+  end
 end
 
 module RSS::Atom
   class Feed
     def have_author?
       true
+    end
+  end
+end
+
+module GoogleReaderApi
+  class SubscriptionList
+    def unread_items
+      feeds.map(&:unread_items)
     end
   end
 end

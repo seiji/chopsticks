@@ -1,6 +1,7 @@
 module Chopsticks::View
   class Window
 
+    attr_reader :page
     def initialize(win, x, y, width, height)
       @parent = win
       if width == 0
@@ -9,7 +10,7 @@ module Chopsticks::View
       if height == 0
         height = Ncurses.getmaxy(Ncurses.stdscr)
       end
-      
+      @page = 0
       @width  = width
       @height = height
       @window = win.subwin(@height, @width, y, x)
@@ -25,6 +26,10 @@ module Chopsticks::View
     def show
       @window.move(@cur_y, 0)
       @window.noutrefresh
+    end
+
+    def help_text
+      nil
     end
 
     def update(item, data=nil)

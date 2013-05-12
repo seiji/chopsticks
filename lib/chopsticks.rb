@@ -5,6 +5,9 @@ require "chopsticks/helper"
 require "chopsticks/keybinds"
 
 require "chopsticks/model"
+require "chopsticks/models/user"
+require "chopsticks/models/feed"
+
 require "chopsticks/view/window"
 require "chopsticks/view/window_table"
 require "chopsticks/view/feed_list"

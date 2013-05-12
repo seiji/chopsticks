@@ -9,6 +9,32 @@ module Chopsticks::View
       @cached_selected_flg = {}
     end
 
+    def help_text
+  <<-eos
+
+    Help for Chopsticks <feed list>
+    ------------------------------------------------
+
+    Keys that can be used on feed rows
+
+    <h>,<?>        - Show Help (this window)
+    <o>,<ENTER>    - Open feed entries
+    <j>,<KEY_DOWN> - Move down row
+    <k>,<KEY_UP>   - Move up row
+    <m>            - Select a feed and Move down
+    <u>            - Unselect a feed and Move down
+    <q>            - Quit this appication
+
+    Keys that can be used on control feeds
+
+    <d>            - Unsubscribe selected feeds
+    <D>            - Unsubscribe this feed
+    <r>            - Reload feed rows
+    <M>            - Mark all as read
+
+    eos
+    end
+
     def update_str(index = 0, item)
       x = 0
       url = item.url
@@ -20,7 +46,7 @@ module Chopsticks::View
       else
         x = add_ch(" ".ord, x, index)
       end
-      x = add_str(" | %4d | " %  unread_count, x, index, 9, 1)
+      x = add_str(" | %5d | " %  unread_count, x, index, 10, 1)
 
       x = add_str(item.title, x, index, @width/5, 1)
       x = add_str("[", x, index, 1)

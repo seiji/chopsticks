@@ -1,6 +1,7 @@
 module Chopsticks::View::WindowTable
 
   attr_reader :selected_index
+
   def initialize(win, x, y, width, height)
     super
     @window.scrollok false
@@ -19,6 +20,8 @@ module Chopsticks::View::WindowTable
   
   def update_row(index = 0, item)
     return if (index < 0 or index >= @height)
+    @window.move(index, 0)
+    @window.clrtoeol()
     if index == @selected_index - @scroll_offset
       @window.attron(Ncurses::A_REVERSE)
     end
@@ -64,6 +67,7 @@ module Chopsticks::View::WindowTable
     @selected_index = new_index
     update_row(old_index - @scroll_offset, @items[old_index])
     update_row(new_index - @scroll_offset, @items[new_index])
+
     @window.noutrefresh()
   end
 

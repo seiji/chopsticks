@@ -3,8 +3,8 @@ require 'html2md'
 module Chopsticks::View
   class FeedEntry < Chopsticks::View::Window
 
-    def initialize(win, x, y, width, height)
-      @parent = win
+    def initialize(view, x, y, width, height)
+      @parent_view = view
       @width  = width
       @height = height
       @window = Ncurses.newwin(@height, @width, y, x)
@@ -13,12 +13,13 @@ module Chopsticks::View
     def update(selected_index, items, data=nil)
       @data = data
       @items = items
-      @selected_index = selected_index
+      @page = selected_index
       select()
     end
 
     def select
       @window.clear
+      @parent_view.cached_selected_flg[@page] = true
       item = current_item
       entry = item.entry
       updated_locatime = entry.updated.content.localtime.strftime("%Y/%m/%d %H:%M")
@@ -45,20 +46,11 @@ module Chopsticks::View
 
       y += 2
       if entry.content
-        html2md = Html2Md.new(entry.content.content)
-        str = html2md.parse
-        str.gsub!(/(\r\n){3,}|\r{3,}|\n{3,}/, "\n\n")
+        str = entry.content.content.html2md
         x = add_str(str, 0, y)
         y += 1
       elsif entry.summary
-        html2md = Html2Md.new(entry.summary.content)
-        begin
-          str = html2md.parse
-        rescue
-          str = entry.summary.content
-        ensure
-        end
-        str.gsub!(/(\r\n){3,}|\r{3,}|\n{3,}/, "\n\n")
+        str = entry.summary.content.html2md
         x = add_str(str, 0, y)
         y += 1        
       end
@@ -67,20 +59,20 @@ module Chopsticks::View
     end
 
     def next
-      new_index = @selected_index + 1
+      new_index = @page + 1
       if new_index >=  @items.size
         return
       end
-      @selected_index += 1
+      @page += 1
       select
     end
 
     def prev
-      new_index = @selected_index - 1
+      new_index = @page - 1
       if new_index < 0
         return
       end
-      @selected_index -= 1
+      @page -= 1
       select
     end
 
@@ -94,7 +86,7 @@ module Chopsticks::View
 
     private
     def current_item
-      @items[@selected_index]
+      @items[@page]
     end
   end
 end

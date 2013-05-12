@@ -18,9 +18,15 @@ module Chopsticks
         app.open
       when 'q'.ord
         return app.quit
+      when 'r'.ord
+        app.reload
       when 'u'.ord
         app.uncheck
         app.next
+      when 'x'.ord
+        app.marks
+      when 'X'.ord
+        app.mark
       end
       app.status_line.update "#{ch}" # debug
       return true

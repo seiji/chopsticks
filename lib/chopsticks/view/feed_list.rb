@@ -15,7 +15,7 @@ module Chopsticks::View
     Help for Chopsticks <feed list>
     ------------------------------------------------
 
-    Keys that can be used on feed rows
+    Keys that can be used on navigation
 
     <h>,<?>        - Show Help (this window)
     <o>,<ENTER>    - Open feed entries
@@ -25,12 +25,18 @@ module Chopsticks::View
     <u>            - Unselect a feed and Move down
     <q>            - Quit this appication
 
-    Keys that can be used on control feeds
+    Keys that can be used on action
+    <s>            - Toggle star
+    <l>            - Toggle like
+    <v>            - Browse original site
+    <m>            - Toggle readed
+    <A>            - mark all as read
+    </>            - Search
 
-    <d>            - Unsubscribe selected feeds
     <D>            - Unsubscribe this feed
     <r>            - Reload feed rows
-    <M>            - Mark all as read
+    <x>            - Mark selected feeds all as read
+    <X>            - Mark this feed all as read
 
     eos
     end
@@ -57,10 +63,11 @@ module Chopsticks::View
       x = add_str(" ", x, index, @width -x)
     end
 
+    # Commands
     def open
       feed = @items[@selected_index]
-      items = []
-      items = feed.unread_items(@height)
+      items = feed.unread_items(@height) || []
+
       feed_entries = Chopsticks::View::FeedEntries.new @window, 0, 0, @width, @height
       feed_entries.update(items, feed)
       feed_entries.touchwin
@@ -76,6 +83,27 @@ module Chopsticks::View
     def uncheck
       feed = @items[@selected_index]
       @cached_selected_flg[feed.url] = false
+    end
+
+    def mark
+      feed = @items[@selected_index]
+
+      url = feed.url
+      unread_count = @cached_unread_count[url] || item.unread_count
+      @cached_unread_count[url] = unread_count
+
+      feed.unread_items(unread_count).each do |entry|
+        entry.toggle_read
+      end
+    end
+
+    def marks
+
+    end
+
+    def reload
+      clear
+      update Chopsticks::Models::User.feeds
     end
   end
 end

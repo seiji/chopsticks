@@ -10,7 +10,6 @@ module Chopsticks
 
     def initialize
       $observers = []
-
       @status_line  = Chopsticks::View::StatusLine.new  Ncurses.stdscr, 0, height - 2, 0, 1
       @command_line = Chopsticks::View::CommandLine.new Ncurses.stdscr, 0, height - 1, 0, 1
     end

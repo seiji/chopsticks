@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Chopsticks::View
   class Window
 
@@ -36,16 +37,6 @@ module Chopsticks::View
       @data = data
       @items = item
       @window.noutrefresh()
-    end
-
-    def open
-      
-    end
-
-    def pagedown
-    end
-    
-    def pageup
     end
 
     def refresh
@@ -90,6 +81,11 @@ module Chopsticks::View
     def wadd_ch(win, ch, x, y)
       win.mvaddch(y, x, ch)
       x + 1
+    end
+
+    # commands (help, quit is not implemented.)
+    %w(open next prev check uncheck mark marks reload).each do |name|
+      define_method(name) do end
     end
   end
 end
